@@ -23,7 +23,7 @@ export default function Hero() {
             of empty mist between ~640-1024px. */}
         <div
           ref={portraitRef}
-          className="relative h-[94%] w-[min(86vw,720px)] will-change-transform lg:w-[min(52vw,720px)]"
+          className="relative h-[94%] w-[min(92vw,780px)] will-change-transform lg:w-[min(58vw,860px)]"
         >
           <img
             src="/william-orlando.jpg"
