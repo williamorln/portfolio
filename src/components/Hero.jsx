@@ -17,11 +17,13 @@ export default function Hero() {
           photo's own sky that the edges dissolve without needing a heavy
           dark frame. */}
       <div className="absolute inset-0 flex items-end justify-center">
-        {/* Narrower than half the viewport on desktop; nearly full-bleed on a
-            phone, where 52vw crops the portrait into a sliver. */}
+        {/* Full and wide through tablet widths; only narrows to make room for
+            the side-by-side tagline once there's real desktop space for it —
+            switching this earlier left it a narrow column stranded in a lot
+            of empty mist between ~640-1024px. */}
         <div
           ref={portraitRef}
-          className="relative h-[94%] w-[min(86vw,720px)] will-change-transform sm:w-[min(52vw,720px)]"
+          className="relative h-[94%] w-[min(86vw,720px)] will-change-transform lg:w-[min(52vw,720px)]"
         >
           <img
             src="/william-orlando.jpg"
@@ -51,7 +53,7 @@ export default function Hero() {
 
       {/* Location pill + Jakarta clock */}
       <div
-        className="absolute left-0 z-4 top-[52%] flex items-center gap-[18px] bg-paper sm:top-[44%]"
+        className="absolute left-0 z-4 top-[52%] flex items-center gap-[18px] bg-paper lg:top-[44%]"
         style={{ padding: '14px 22px 14px 24px', borderRadius: '0 100px 100px 0' }}
       >
         <div className="text-[13px] font-medium leading-[1.25] tracking-[-0.01em]">
@@ -70,7 +72,7 @@ export default function Hero() {
       {/* Tagline. Sits high on a phone so it clears the location pill, which
           shares the same band at desktop widths. */}
       <div
-        className="absolute z-4 top-[17%] text-right text-paper sm:top-[46%]"
+        className="absolute z-4 top-[17%] text-right text-paper lg:top-[46%]"
         style={{ right: 'clamp(20px, 4vw, 56px)' }}
       >
         <div
@@ -84,7 +86,7 @@ export default function Hero() {
 
       <div
         aria-hidden
-        className="animate-nudge absolute z-4 hidden text-[26px] text-paper sm:block"
+        className="animate-nudge absolute z-4 hidden text-[26px] text-paper lg:block"
         style={{ right: 'clamp(20px, 4vw, 56px)', top: '26%' }}
       >
         ↘
