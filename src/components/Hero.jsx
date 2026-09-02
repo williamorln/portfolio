@@ -26,17 +26,18 @@ export default function Hero() {
           <img
             src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
-            className="h-full w-full object-cover object-top"
-            style={{ filter: 'grayscale(1) contrast(1.06) brightness(0.55)' }}
+            className="h-full w-full object-cover"
+            style={{ objectPosition: '50% 30%', filter: 'grayscale(1) contrast(1.15) brightness(0.92)' }}
           />
-          {/* Every edge dissolves into the hero background, top included —
-              otherwise the studio backdrop leaves a hard grey seam. */}
+          {/* Edges dissolve into the hero background. Kept light so it fades
+              the frame rather than swallowing the subject — this photo's
+              midtones are much darker than the old studio shot's. */}
           <div
             aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to bottom, #0C0C0C 0%, rgba(12,12,12,0) 26%, rgba(12,12,12,0) 46%, rgba(12,12,12,0.88) 82%, #0C0C0C 100%)',
+                'linear-gradient(to bottom, #0C0C0C 0%, rgba(12,12,12,0) 14%, rgba(12,12,12,0) 78%, rgba(12,12,12,0.55) 94%, #0C0C0C 100%)',
             }}
           />
           <div
@@ -44,7 +45,7 @@ export default function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to right, #0C0C0C 0%, rgba(12,12,12,0) 20%, rgba(12,12,12,0) 80%, #0C0C0C 100%)',
+                'linear-gradient(to right, #0C0C0C 0%, rgba(12,12,12,0) 16%, rgba(12,12,12,0) 84%, #0C0C0C 100%)',
             }}
           />
         </div>

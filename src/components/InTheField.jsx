@@ -62,7 +62,9 @@ export default function InTheField() {
               <span className="font-display text-[16.5px] font-semibold tracking-[-0.02em]">
                 {item.title}
               </span>
-              <span className="whitespace-nowrap text-[12.5px] text-paper/50">{item.year}</span>
+              <span className="whitespace-nowrap text-[12.5px] text-paper/50">
+                {item.year ?? '—'}
+              </span>
             </figcaption>
             <div className="mt-1 text-[13.5px] text-paper/60">{item.role}</div>
           </figure>

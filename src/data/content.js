@@ -263,15 +263,21 @@ export const business = {
   ],
 }
 
-/* "In the field" strip. No photos yet, so these render as typographic cards
-   rather than empty image frames. Add an `image` path to any entry and the
-   card will use it. */
+/* "In the field" strip. Cards without an `image` render typographically
+   rather than as an empty frame — set `image` once a photo exists. `year:
+   null` renders "—" rather than a guessed date. */
 export const fieldwork = [
-  { title: 'Kahf · Paragon', role: 'Sales Promotion Boy', year: 'PRJ 2026', image: null },
-  { title: 'Mitski Live Jakarta', role: 'Usher', year: '2026', image: null },
-  { title: 'Bernadya Concert', role: 'Usher', year: '2025', image: null },
-  { title: 'JSD Blok M Festival', role: 'Prabu — brand booth', year: '2025', image: null },
-  { title: 'Byon Combat Showbiz 8', role: 'Marketing team', year: '2025', image: null },
+  { title: 'Kahf · Paragon', role: 'Sales Promotion Boy', year: 'PRJ 2026', image: '/fieldwork-kahf.jpg' },
+  { title: 'Mitski Live Jakarta', role: 'Usher', year: '2026', image: '/fieldwork-mitski.jpg' },
+  { title: 'Bernadya Concert', role: 'Usher', year: '2025', image: '/fieldwork-bernadya.jpg' },
+  { title: 'JSD Blok M Festival', role: 'Prabu — brand booth', year: '2025', image: '/fieldwork-jsd.jpg' },
+  { title: 'Byon Combat Showbiz 8', role: 'Marketing team', year: '2025', image: '/fieldwork-byon.jpg' },
+  {
+    title: 'Pagelaran Sabang Merauke',
+    role: 'Prabu — brand exhibition',
+    year: null,
+    image: '/fieldwork-sabang-merauke.jpg',
+  },
   { title: 'COMPFEST', role: 'Academy Division (DSAI)', year: '2026', image: null },
   { title: 'Open House Fasilkom UI', role: 'Business Development', year: '2025', image: null },
 ]
