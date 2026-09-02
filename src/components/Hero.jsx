@@ -29,7 +29,7 @@ export default function Hero() {
             src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
             className="h-full w-full object-cover"
-            style={{ objectPosition: '50% 18%' }}
+            style={{ objectPosition: '50% 58%' }}
           />
           {/* Edges dissolve into the mist background. */}
           <div
