@@ -13,22 +13,37 @@ export default function Hero() {
       className="relative overflow-hidden bg-mist"
       style={{ height: '100vh', minHeight: '620px' }}
     >
-      {/* Portrait, cut out of its background. It sits above the wordmark
-          (z-3 below) so he reads as standing in front of the page rather
-          than pasted into it, and the drop-shadow follows his actual
-          silhouette instead of a rectangular photo edge. */}
-      <div className="absolute inset-0 z-3 flex items-end justify-center">
+      {/* Portrait, kept in color. The mist background is close enough to the
+          photo's own sky that the edges dissolve without needing a heavy
+          dark frame. */}
+      <div className="absolute inset-0 flex items-end justify-center">
+        {/* Narrower than half the viewport on desktop; nearly full-bleed on a
+            phone, where 52vw crops the portrait into a sliver. */}
         <div
           ref={portraitRef}
           className="relative h-[94%] w-[min(86vw,720px)] will-change-transform sm:w-[min(52vw,720px)]"
         >
           <img
-            src="/william-cutout.webp"
+            src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
-            className="h-full w-full object-contain object-bottom"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: '50% 18%' }}
+          />
+          {/* Edges dissolve into the mist background. */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
             style={{
-              filter:
-                'drop-shadow(0 18px 14px rgba(20,17,12,0.22)) drop-shadow(0 46px 40px rgba(20,17,12,0.24)) drop-shadow(0 90px 70px rgba(20,17,12,0.18))',
+              background:
+                'linear-gradient(to bottom, #A6A39C 0%, rgba(166,163,156,0) 14%, rgba(166,163,156,0) 78%, rgba(166,163,156,0.55) 94%, #A6A39C 100%)',
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to right, #A6A39C 0%, rgba(166,163,156,0) 16%, rgba(166,163,156,0) 84%, #A6A39C 100%)',
             }}
           />
         </div>
@@ -75,11 +90,10 @@ export default function Hero() {
         ↘
       </div>
 
-      {/* Wordmark, bleeding off the bottom edge. Sits behind the portrait
-          (z-2 < z-3) so he appears to stand in front of the type. */}
+      {/* Wordmark, bleeding off the bottom edge */}
       <div
         ref={wordmarkRef}
-        className="pointer-events-none absolute inset-x-0 z-2 flex items-end will-change-transform"
+        className="pointer-events-none absolute inset-x-0 z-3 flex items-end will-change-transform"
         style={{ bottom: '-0.6vw', gap: '2vw', padding: '0 clamp(14px, 2vw, 36px)' }}
       >
         <h1
