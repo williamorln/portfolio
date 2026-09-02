@@ -13,9 +13,9 @@ export default function Hero() {
       className="relative overflow-hidden bg-mist"
       style={{ height: '100vh', minHeight: '620px' }}
     >
-      {/* Portrait. Grayscale keeps it from clashing with the accent color,
-          and the mid-grey hero is close enough to the photo's own sky that
-          the edges dissolve without needing a heavy dark frame. */}
+      {/* Portrait, kept in color. The mist background is close enough to the
+          photo's own sky that the edges dissolve without needing a heavy
+          dark frame. */}
       <div className="absolute inset-0 flex items-end justify-center">
         {/* Narrower than half the viewport on desktop; nearly full-bleed on a
             phone, where 52vw crops the portrait into a sliver. */}
@@ -27,7 +27,7 @@ export default function Hero() {
             src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
             className="h-full w-full object-cover"
-            style={{ objectPosition: '50% 18%', filter: 'grayscale(1) contrast(1.08) brightness(1.04)' }}
+            style={{ objectPosition: '50% 18%' }}
           />
           {/* Edges dissolve into the mist background. */}
           <div
