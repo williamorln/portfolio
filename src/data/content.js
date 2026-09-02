@@ -278,8 +278,9 @@ export const fieldwork = [
     year: null,
     image: '/fieldwork-sabang-merauke.jpg',
   },
-  { title: 'COMPFEST', role: 'Academy Division (DSAI)', year: '2026', image: null },
-  { title: 'Open House Fasilkom UI', role: 'Business Development', year: '2025', image: null },
+  // COMPFEST and Open House Fasilkom UI have no photo yet, so they're left
+  // out of this strip rather than shown as empty cards. Both still appear
+  // in the Experience section below.
 ]
 
 export const skills = [
