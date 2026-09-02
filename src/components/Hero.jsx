@@ -27,7 +27,7 @@ export default function Hero() {
             src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
             className="h-full w-full object-cover"
-            style={{ objectPosition: '50% 30%', filter: 'grayscale(1) contrast(1.15) brightness(0.92)' }}
+            style={{ objectPosition: '50% 18%', filter: 'grayscale(1) contrast(1.15) brightness(0.92)' }}
           />
           {/* Edges dissolve into the hero background. Kept light so it fades
               the frame rather than swallowing the subject — this photo's
