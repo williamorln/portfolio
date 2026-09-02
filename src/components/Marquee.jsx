@@ -6,7 +6,7 @@ function Row() {
       {marquee.map((item) => (
         <span key={item} className="flex items-center gap-[26px] whitespace-nowrap">
           {item}
-          <span className="text-accent">✳</span>
+          <span aria-hidden className="h-[6px] w-[6px] rounded-full bg-accent" />
         </span>
       ))}
     </div>

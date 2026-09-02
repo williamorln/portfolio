@@ -10,12 +10,12 @@ export default function Hero() {
   return (
     <header
       id="top"
-      className="relative overflow-hidden bg-ink"
+      className="relative overflow-hidden bg-mist"
       style={{ height: '100vh', minHeight: '620px' }}
     >
-      {/* Portrait. The source photo is shot on white, so it's pushed to
-          monochrome and faded into the black frame on every edge — otherwise
-          it reads as a white rectangle pasted onto the hero. */}
+      {/* Portrait, kept in color. The mist background is close enough to the
+          photo's own sky that the edges dissolve without needing a heavy
+          dark frame. */}
       <div className="absolute inset-0 flex items-end justify-center">
         {/* Narrower than half the viewport on desktop; nearly full-bleed on a
             phone, where 52vw crops the portrait into a sliver. */}
@@ -27,17 +27,15 @@ export default function Hero() {
             src="/william-orlando.jpg"
             alt={`${profile.name}, portrait`}
             className="h-full w-full object-cover"
-            style={{ objectPosition: '50% 18%', filter: 'grayscale(1) contrast(1.15) brightness(0.92)' }}
+            style={{ objectPosition: '50% 18%' }}
           />
-          {/* Edges dissolve into the hero background. Kept light so it fades
-              the frame rather than swallowing the subject — this photo's
-              midtones are much darker than the old studio shot's. */}
+          {/* Edges dissolve into the mist background. */}
           <div
             aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to bottom, #0C0C0C 0%, rgba(12,12,12,0) 14%, rgba(12,12,12,0) 78%, rgba(12,12,12,0.55) 94%, #0C0C0C 100%)',
+                'linear-gradient(to bottom, #A6A39C 0%, rgba(166,163,156,0) 14%, rgba(166,163,156,0) 78%, rgba(166,163,156,0.55) 94%, #A6A39C 100%)',
             }}
           />
           <div
@@ -45,7 +43,7 @@ export default function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to right, #0C0C0C 0%, rgba(12,12,12,0) 16%, rgba(12,12,12,0) 84%, #0C0C0C 100%)',
+                'linear-gradient(to right, #A6A39C 0%, rgba(166,163,156,0) 16%, rgba(166,163,156,0) 84%, #A6A39C 100%)',
             }}
           />
         </div>
