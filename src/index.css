@@ -1,42 +1,38 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------
-   Design tokens
-   Warm paper base, ink text, one rust accent. Kept deliberately
-   small — every colour on the site comes from this list.
+   Design tokens — ported from the Claude Design source
+   (DESIGN UNTUK PORTO/William Orlando Portfolio.dc.html).
+   Values are lifted exactly, not rounded.
    --------------------------------------------------------------- */
 @theme {
-  --color-paper: #f6f4ef;
-  --color-paper-2: #efebe2;
-  --color-ink: #17150f;
-  --color-ink-soft: #56514a;
-  --color-ink-faint: #8a8378;
-  --color-line: #ded8cc;
-  --color-accent: #b4441f;
-  --color-night: #14120e;
+  --color-paper: #f3f1ed;
+  --color-paper-2: #edeae4;
+  --color-ink: #0c0c0c;
+  --color-ink-deep: #3b382f;
+  --color-ink-soft: #4a4640;
+  --color-ink-faint: #6e6a63;
+  --color-accent: #b5471f;
 
-  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-display: 'Archivo', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* keep anchored sections clear of the sticky header */
-    scroll-padding-top: 6rem;
   }
 
   body {
+    margin: 0;
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background-color: var(--color-accent);
+    background: var(--color-ink);
     color: var(--color-paper);
   }
 
@@ -47,14 +43,13 @@
 }
 
 @layer components {
-  /* Scroll reveal — the only motion on the site, and it turns
-     itself off for anyone who asked for reduced motion. */
+  /* Scroll reveal — fires once, then stops observing. */
   .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(22px);
     transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -62,6 +57,48 @@
     opacity: 1;
     transform: none;
   }
+
+  /* Horizontal strip in "In the field" — thin, unobtrusive scrollbar. */
+  .strip-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(243, 241, 237, 0.28) transparent;
+  }
+  .strip-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+  .strip-scroll::-webkit-scrollbar-thumb {
+    background: rgba(243, 241, 237, 0.28);
+    border-radius: 99px;
+  }
+}
+
+@keyframes om-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes om-nudge {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(5px, 5px);
+    opacity: 1;
+  }
+}
+
+.animate-marquee {
+  animation: om-marquee 34s linear infinite;
+}
+
+.animate-nudge {
+  animation: om-nudge 2.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -73,5 +110,10 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .animate-marquee,
+  .animate-nudge {
+    animation: none;
   }
 }

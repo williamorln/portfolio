@@ -1,103 +1,100 @@
-import Reveal from './ui/Reveal.jsx'
-import { links, profile, sections } from '../data/content.js'
+import { links, profile, education } from '../data/content.js'
 import { getProfileLinks, hasPendingLinks, pendingLinkLabels } from '../lib/social.js'
-
-const meta = sections.find((s) => s.id === 'contact')
+import { useClock } from '../hooks/useClock.js'
 
 export default function Contact() {
   const profileLinks = getProfileLinks()
+  const clock = useClock()
   const year = new Date().getFullYear()
 
   return (
-    <section id={meta.id} className="scroll-mt-24 bg-night px-6 py-20 text-paper sm:px-8 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <div className="border-t border-paper/15 pt-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs tracking-widest text-paper/40">{meta.num}</span>
-              <span className="font-mono text-xs uppercase tracking-widest text-paper/40">
-                {meta.label}
-              </span>
-            </div>
+    <section
+      id="contact"
+      className="bg-ink text-paper"
+      style={{ padding: 'clamp(72px,9vw,140px) clamp(20px,4vw,56px) 40px' }}
+    >
+      <div className="mx-auto max-w-[1320px]">
+        <div className="mb-[26px] flex items-center gap-[9px] text-xs font-semibold uppercase tracking-[0.09em] text-paper/55">
+          <span className="h-[6px] w-[6px] rounded-full bg-accent" />
+          06 — Contact
+        </div>
 
-            <h2 className="mt-8 max-w-4xl font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-              Working on something interesting? I'd like to hear about it.
-            </h2>
+        <h2
+          className="m-0 font-display font-semibold leading-[0.86] tracking-[-0.05em]"
+          style={{
+            fontSize: 'clamp(42px, 8.4vw, 140px)',
+            marginBottom: 'clamp(30px, 4vw, 54px)',
+          }}
+        >
+          Let's build
+          <br />
+          something.
+        </h2>
 
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-paper/60">
-              Open to internships, data science and automation projects, competition teams, or just
-              a conversation about something you're building.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <a
-            href={`mailto:${links.email}`}
-            className="group mt-12 inline-flex max-w-full items-center gap-4 md:mt-16"
-          >
-            <span className="break-all font-display text-2xl tracking-tight underline decoration-paper/25 decoration-1 underline-offset-8 transition-colors group-hover:decoration-accent sm:text-4xl md:text-5xl">
-              {links.email}
-            </span>
-            <span
-              aria-hidden
-              className="hidden shrink-0 text-3xl text-paper/40 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent sm:block"
+        <div
+          className="grid gap-8 border-b border-paper/18 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]"
+          style={{ paddingBottom: 'clamp(40px, 6vw, 90px)' }}
+        >
+          <div>
+            <div className="mb-2.5 text-xs uppercase tracking-[0.08em] text-paper/50">Email</div>
+            <a
+              href={`mailto:${links.email}`}
+              className="border-b border-paper/35 pb-[3px] font-display tracking-[-0.02em] text-paper transition-colors hover:border-accent"
+              style={{ fontSize: 'clamp(18px, 1.7vw, 24px)' }}
             >
-              →
-            </span>
-          </a>
-        </Reveal>
+              {links.email}
+            </a>
+          </div>
 
-        {profileLinks.length > 0 && (
-          <Reveal delay={120}>
-            <ul className="mt-12 flex flex-wrap gap-3">
-              {profileLinks.map((link) => (
-                <li key={link.label}>
+          <div>
+            <div className="mb-2.5 text-xs uppercase tracking-[0.08em] text-paper/50">
+              Elsewhere
+            </div>
+            {profileLinks.length > 0 ? (
+              <div className="flex flex-col gap-[7px] text-[15.5px]">
+                {profileLinks.map((link) => (
                   <a
+                    key={link.label}
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group inline-flex items-center gap-2 rounded-full border border-paper/20 px-5 py-2.5 text-sm transition-colors hover:border-paper/60"
+                    className="text-paper/85 transition-colors hover:text-accent"
                   >
-                    {link.label}
-                    <span className="font-mono text-[11px] text-paper/40">{link.handle}</span>
-                    <span
-                      aria-hidden
-                      className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    >
-                      ↗
-                    </span>
+                    {link.label} ↗
                   </a>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        )}
+                ))}
+              </div>
+            ) : (
+              <div className="text-[15.5px] text-paper/50">—</div>
+            )}
+          </div>
 
-        {/* Dev-only nudge. Never renders in the production build. */}
+          <div>
+            <div className="mb-2.5 text-xs uppercase tracking-[0.08em] text-paper/50">
+              Currently
+            </div>
+            <div className="text-[15.5px] leading-[1.55] text-paper/85">
+              {education.degree} — Universitas Indonesia. {profile.available}.
+            </div>
+          </div>
+        </div>
+
+        {/* Dev-only reminder; never present in the production build. */}
         {import.meta.env.DEV && hasPendingLinks() && (
-          <p className="mt-10 rounded-lg border border-dashed border-accent/50 px-4 py-3 font-mono text-xs text-accent">
-            Dev note: {pendingLinkLabels().join(' and ')} link
-            {pendingLinkLabels().length > 1 ? 's are' : ' is'} still using a placeholder username, so
-            {pendingLinkLabels().length > 1 ? ' they are' : ' it is'} hidden on the live site. Set it
-            in src/data/content.js → links.
+          <p className="mt-8 rounded border border-dashed border-accent/60 px-4 py-3 text-xs text-accent">
+            Dev note: {pendingLinkLabels().join(' and ')} still uses a placeholder username, so it
+            is hidden on the live site. Set it in src/data/content.js → links.
           </p>
         )}
 
-        <footer className="mt-20 flex flex-col gap-4 border-t border-paper/15 pt-8 sm:flex-row sm:items-center sm:justify-between md:mt-28">
-          <p className="font-mono text-xs text-paper/40">
+        <div className="flex flex-wrap justify-between gap-4 pt-[22px] text-[12.5px] text-paper/45">
+          <span>
             © {year} {profile.name}
-          </p>
-          <p className="font-mono text-xs text-paper/40">
-            Built with React &amp; Tailwind · {profile.location}
-          </p>
-          <a
-            href="#top"
-            className="font-mono text-xs uppercase tracking-widest text-paper/60 transition-colors hover:text-paper"
-          >
-            Back to top ↑
-          </a>
-        </footer>
+          </span>
+          <span>
+            {profile.location} — {clock} WIB
+          </span>
+        </div>
       </div>
     </section>
   )

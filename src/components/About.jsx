@@ -1,34 +1,78 @@
-import Section from './ui/Section.jsx'
+import { about, education, profile } from '../data/content.js'
 import Reveal from './ui/Reveal.jsx'
-import { about, education, sections } from '../data/content.js'
-
-const meta = sections.find((s) => s.id === 'about')
 
 export default function About() {
   return (
-    <Section id={meta.id} num={meta.num} label={meta.label} title="A bit about how I work.">
-      <div className="grid gap-12 md:grid-cols-12">
-        <div className="space-y-6 md:col-span-7">
+    <section
+      id="about"
+      className="bg-paper-2"
+      style={{ padding: 'clamp(72px,9vw,140px) clamp(20px,4vw,56px)' }}
+    >
+      <div
+        className="mx-auto grid max-w-[1320px] items-start [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]"
+        style={{ gap: 'clamp(32px, 5vw, 80px)' }}
+      >
+        {/* The design has a second candid photo here. Until there is one, this
+            block carries the education detail rather than an empty frame —
+            drop an <img> in and it takes the same 4/5 slot. */}
+        <Reveal className="relative flex aspect-4/5 flex-col justify-between overflow-hidden rounded-md bg-ink p-9 text-paper">
+          <div className="text-xs font-semibold uppercase tracking-[0.09em] text-paper/45">
+            Education
+          </div>
+
+          <div>
+            <div className="font-display text-3xl leading-[1.06] tracking-[-0.03em]">
+              {education.school}
+            </div>
+            <div className="mt-4 text-[15px] text-paper/65">{education.degree}</div>
+            <div className="mt-1 text-[13px] text-paper/45">{education.period}</div>
+          </div>
+
+          <div className="border-t border-paper/15 pt-6">
+            <div className="text-xs uppercase tracking-[0.08em] text-paper/45">Based in</div>
+            <div className="mt-2 text-[15px] text-paper/85">{profile.location}</div>
+          </div>
+        </Reveal>
+
+        <div>
+          <Reveal className="mb-5 flex items-center gap-[9px] text-xs font-semibold uppercase tracking-[0.09em] text-ink-faint">
+            <span className="h-[6px] w-[6px] rounded-full bg-accent" />
+            03 — About
+          </Reveal>
+
+          <Reveal
+            as="h2"
+            className="m-0 mb-6 font-display font-semibold leading-[1.04] tracking-[-0.035em] text-pretty"
+            style={{ fontSize: 'clamp(30px, 3.6vw, 50px)' }}
+          >
+            {about.heading}
+          </Reveal>
+
           {about.paragraphs.map((text, i) => (
-            <Reveal key={i} as="p" delay={i * 80} className="text-lg leading-relaxed text-ink-soft">
+            <Reveal
+              key={i}
+              as="p"
+              delay={i * 60}
+              className="m-0 mb-[18px] max-w-[52ch] text-[16.5px] leading-[1.62] text-ink-deep text-pretty"
+            >
               {text}
             </Reveal>
           ))}
-        </div>
 
-        <Reveal delay={120} className="md:col-span-4 md:col-start-9">
-          <div className="rounded-2xl border border-line bg-paper-2/50 p-7">
-            <h3 className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-              Education
-            </h3>
-            <p className="mt-5 font-display text-2xl leading-snug tracking-tight">
-              {education.school}
-            </p>
-            <p className="mt-3 text-sm text-ink-soft">{education.degree}</p>
-            <p className="mt-1 font-mono text-xs text-ink-faint">{education.period}</p>
-          </div>
-        </Reveal>
+          <Reveal
+            className="mt-[34px] grid gap-[22px] border-t border-ink/14 pt-7 [grid-template-columns:repeat(auto-fit,minmax(130px,1fr))]"
+          >
+            {about.stats.map((stat) => (
+              <div key={stat.label}>
+                <div className="font-display text-[34px] font-semibold tracking-[-0.03em]">
+                  {stat.value}
+                </div>
+                <div className="mt-1 text-[13px] text-ink-faint">{stat.label}</div>
+              </div>
+            ))}
+          </Reveal>
+        </div>
       </div>
-    </Section>
+    </section>
   )
 }

@@ -1,70 +1,119 @@
-import Section from './ui/Section.jsx'
+import { organizational, business } from '../data/content.js'
 import Reveal from './ui/Reveal.jsx'
-import { experience, sections } from '../data/content.js'
 
-const meta = sections.find((s) => s.id === 'experience')
-
-function Entry({ item, index }) {
+function Pill({ children }) {
   return (
-    <Reveal delay={index * 60} as="li" className="relative pl-8 sm:pl-0">
-      <div className="grid gap-4 border-t border-line py-8 sm:grid-cols-12 sm:gap-8">
-        {/* timeline rail — the dot sits on the section's left edge on mobile */}
-        <span
-          aria-hidden
-          className={`absolute left-0 top-[calc(2rem+1px)] h-2.5 w-2.5 -translate-x-[4px] rounded-full sm:hidden ${
-            item.current ? 'bg-accent' : 'bg-line'
-          }`}
-        />
+    <span className="rounded-full border border-ink/18 px-[13px] py-[7px] text-[13px]">
+      {children}
+    </span>
+  )
+}
 
-        <div className="sm:col-span-3">
-          <div className="flex items-center gap-2">
-            <span
-              aria-hidden
-              className={`hidden h-2 w-2 shrink-0 rounded-full sm:block ${
-                item.current ? 'bg-accent' : 'bg-line'
-              }`}
-            />
-            <span className="font-mono text-xs tracking-wide text-ink-soft">{item.period}</span>
-          </div>
-          <span className="mt-2 block font-mono text-[11px] uppercase tracking-widest text-ink-faint sm:ml-4">
-            {item.kind}
-          </span>
-        </div>
-
-        <div className="sm:col-span-9">
-          <h3 className="font-display text-2xl leading-tight tracking-tight sm:text-3xl">
-            {item.role}
-          </h3>
-          <p className="mt-1.5 text-sm text-accent">{item.org}</p>
-
-          <ul className="mt-4 space-y-2.5">
-            {item.points.map((point, i) => (
-              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-ink-soft">
-                <span aria-hidden className="mt-2.5 h-px w-3 shrink-0 bg-line" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Reveal>
+function ColumnHead({ children }) {
+  return (
+    <div className="border-b border-ink/14 pb-3.5 text-xs font-semibold uppercase tracking-[0.08em] text-accent">
+      {children}
+    </div>
   )
 }
 
 export default function Experience() {
   return (
-    <Section
-      id={meta.id}
-      num={meta.num}
-      label={meta.label}
-      title="Where I've been useful."
-      lead="Campus organizations, teaching, and a small business I've been running since 2023."
+    <section
+      id="experience"
+      style={{ padding: 'clamp(72px,9vw,140px) clamp(20px,4vw,56px)' }}
     >
-      <ol className="relative before:absolute before:bottom-0 before:left-0 before:top-0 before:w-px before:bg-line sm:before:hidden">
-        {experience.map((item, i) => (
-          <Entry key={`${item.role}-${item.org}`} item={item} index={i} />
-        ))}
-      </ol>
-    </Section>
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="mb-[22px] flex items-center gap-[9px] text-xs font-semibold uppercase tracking-[0.09em] text-ink-faint">
+          <span className="h-[6px] w-[6px] rounded-full bg-accent" />
+          04 — Experience
+        </Reveal>
+
+        <Reveal
+          as="h2"
+          className="m-0 font-display font-semibold leading-[0.96] tracking-[-0.04em]"
+          style={{
+            fontSize: 'clamp(34px, 4.6vw, 66px)',
+            marginBottom: 'clamp(34px, 4vw, 58px)',
+          }}
+        >
+          Organizations, events, and a flower shop.
+        </Reveal>
+
+        <div
+          className="grid [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]"
+          style={{ gap: 'clamp(30px, 4vw, 64px)' }}
+        >
+          <Reveal>
+            <ColumnHead>Organizational</ColumnHead>
+            <div className="flex flex-col">
+              {organizational.map((item, i) => (
+                <div
+                  key={item.role}
+                  className={`py-[22px] ${
+                    i < organizational.length - 1 ? 'border-b border-ink/10' : ''
+                  }`}
+                >
+                  <div className="flex items-baseline justify-between gap-4">
+                    <div className="font-display text-[18.5px] font-semibold tracking-[-0.02em]">
+                      {item.role}
+                    </div>
+                    <div className="whitespace-nowrap text-[12.5px] text-ink-faint">
+                      {item.period}
+                    </div>
+                  </div>
+                  <p className="m-0 mt-2 max-w-[46ch] text-[14.5px] leading-[1.55] text-ink-soft">
+                    {item.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <ColumnHead>Business, Events &amp; Volunteer</ColumnHead>
+
+            <div className="border-b border-ink/10 py-[22px]">
+              <div className="flex items-baseline justify-between gap-4">
+                <div className="font-display text-[18.5px] font-semibold tracking-[-0.02em]">
+                  {business.floral.role}
+                </div>
+                <div className="whitespace-nowrap text-[12.5px] text-ink-faint">
+                  {business.floral.period}
+                </div>
+              </div>
+              <p className="m-0 mt-2 max-w-[46ch] text-[14.5px] leading-[1.55] text-ink-soft">
+                {business.floral.detail}
+              </p>
+            </div>
+
+            <div className="border-b border-ink/10 py-[22px]">
+              <div className="mb-3 font-display text-[18.5px] font-semibold tracking-[-0.02em]">
+                Brand &amp; event work
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {business.events.map((e) => (
+                  <Pill key={e}>{e}</Pill>
+                ))}
+              </div>
+              <p className="m-0 mt-3 max-w-[46ch] text-[14.5px] leading-[1.55] text-ink-soft">
+                {business.eventNote}
+              </p>
+            </div>
+
+            <div className="py-[22px]">
+              <div className="mb-3 font-display text-[18.5px] font-semibold tracking-[-0.02em]">
+                Volunteer
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {business.volunteer.map((v) => (
+                  <Pill key={v}>{v}</Pill>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
   )
 }

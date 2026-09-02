@@ -1,72 +1,124 @@
-import { profile, education, links } from '../data/content.js'
+import { profile } from '../data/content.js'
+import { useClock } from '../hooks/useClock.js'
+import { useParallax } from '../hooks/useParallax.js'
 
 export default function Hero() {
+  const clock = useClock()
+  const portraitRef = useParallax(0.16)
+  const wordmarkRef = useParallax(-0.1)
+
   return (
-    <section id="top" className="px-6 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-44">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex items-center gap-3">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-          </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-ink-soft">
-            {profile.available}
-          </span>
-        </div>
-
-        <h1 className="mt-8 max-w-5xl font-display text-[2.75rem] leading-[1.02] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-          {profile.headline}
-        </h1>
-
-        <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12">
-          <p className="max-w-xl text-lg leading-relaxed text-ink-soft md:col-span-7 md:text-xl">
-            {profile.intro}
-          </p>
-
-          <dl className="space-y-4 md:col-span-4 md:col-start-9">
-            <div className="flex justify-between gap-4 border-t border-line pt-3">
-              <dt className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-                Studying
-              </dt>
-              <dd className="text-right text-sm text-ink-soft">Information Systems</dd>
-            </div>
-            <div className="flex justify-between gap-4 border-t border-line pt-3">
-              <dt className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">At</dt>
-              <dd className="text-right text-sm text-ink-soft">Fasilkom UI</dd>
-            </div>
-            <div className="flex justify-between gap-4 border-t border-line pt-3">
-              <dt className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-                Since
-              </dt>
-              <dd className="text-right text-sm text-ink-soft">{education.period}</dd>
-            </div>
-            <div className="flex justify-between gap-4 border-t border-line pt-3">
-              <dt className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-                Based in
-              </dt>
-              <dd className="text-right text-sm text-ink-soft">{profile.location}</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center gap-3 md:mt-16">
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm text-paper transition-colors hover:bg-accent"
-          >
-            See the work
-            <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">
-              ↓
-            </span>
-          </a>
-          <a
-            href={`mailto:${links.email}`}
-            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm text-ink transition-colors hover:border-ink"
-          >
-            Get in touch
-          </a>
+    <header
+      id="top"
+      className="relative overflow-hidden bg-ink"
+      style={{ height: '100vh', minHeight: '620px' }}
+    >
+      {/* Portrait. The source photo is shot on white, so it's pushed to
+          monochrome and faded into the black frame on every edge — otherwise
+          it reads as a white rectangle pasted onto the hero. */}
+      <div className="absolute inset-0 flex items-end justify-center">
+        {/* Narrower than half the viewport on desktop; nearly full-bleed on a
+            phone, where 52vw crops the portrait into a sliver. */}
+        <div
+          ref={portraitRef}
+          className="relative h-[94%] w-[min(86vw,720px)] will-change-transform sm:w-[min(52vw,720px)]"
+        >
+          <img
+            src="/william-orlando.jpg"
+            alt={`${profile.name}, portrait`}
+            className="h-full w-full object-cover object-top"
+            style={{ filter: 'grayscale(1) contrast(1.06) brightness(0.55)' }}
+          />
+          {/* Every edge dissolves into the hero background, top included —
+              otherwise the studio backdrop leaves a hard grey seam. */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, #0C0C0C 0%, rgba(12,12,12,0) 26%, rgba(12,12,12,0) 46%, rgba(12,12,12,0.88) 82%, #0C0C0C 100%)',
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to right, #0C0C0C 0%, rgba(12,12,12,0) 20%, rgba(12,12,12,0) 80%, #0C0C0C 100%)',
+            }}
+          />
         </div>
       </div>
-    </section>
+
+      {/* Location pill + Jakarta clock */}
+      <div
+        className="absolute left-0 z-4 top-[52%] flex items-center gap-[18px] bg-paper sm:top-[44%]"
+        style={{ padding: '14px 22px 14px 24px', borderRadius: '0 100px 100px 0' }}
+      >
+        <div className="text-[13px] font-medium leading-[1.25] tracking-[-0.01em]">
+          Based in
+          <br />
+          Jakarta,
+          <br />
+          Indonesia
+        </div>
+        <div className="flex h-[46px] w-[46px] flex-col items-center justify-center rounded-full bg-ink text-[9px] font-semibold tracking-[0.02em] text-paper">
+          <span>WIB</span>
+          <span className="text-[11px] font-medium">{clock}</span>
+        </div>
+      </div>
+
+      {/* Tagline. Sits high on a phone so it clears the location pill, which
+          shares the same band at desktop widths. */}
+      <div
+        className="absolute z-4 top-[17%] text-right text-paper sm:top-[46%]"
+        style={{ right: 'clamp(20px, 4vw, 56px)' }}
+      >
+        <div
+          className="whitespace-pre-line font-display font-medium leading-[1.14] tracking-[-0.025em]"
+          style={{ fontSize: 'clamp(22px, 2.5vw, 38px)' }}
+        >
+          {profile.tagline}
+        </div>
+        <div className="mt-[14px] text-[13px] text-paper/60">{profile.role}</div>
+      </div>
+
+      <div
+        aria-hidden
+        className="animate-nudge absolute z-4 hidden text-[26px] text-paper sm:block"
+        style={{ right: 'clamp(20px, 4vw, 56px)', top: '26%' }}
+      >
+        ↘
+      </div>
+
+      {/* Wordmark, bleeding off the bottom edge */}
+      <div
+        ref={wordmarkRef}
+        className="pointer-events-none absolute inset-x-0 z-3 flex items-end will-change-transform"
+        style={{ bottom: '-0.6vw', gap: '2vw', padding: '0 clamp(14px, 2vw, 36px)' }}
+      >
+        <h1
+          className="m-0 font-display font-semibold leading-[0.78] tracking-[-0.05em] text-paper"
+          style={{ fontSize: 'clamp(76px, 15.6vw, 252px)' }}
+        >
+          {profile.wordmark}
+        </h1>
+        <div
+          className="min-w-[40px] flex-1 bg-paper"
+          style={{ height: 'clamp(4px, 0.7vw, 10px)', marginBottom: 'clamp(22px, 4.4vw, 72px)' }}
+        />
+      </div>
+
+      <div
+        className="absolute z-5 flex items-center gap-[9px] rounded-full border border-paper/35 px-4 py-[9px] text-[12.5px] font-medium text-paper"
+        style={{
+          left: 'clamp(20px, 4vw, 56px)',
+          bottom: 'calc(clamp(76px, 15.6vw, 252px) * 0.78 + 26px)',
+        }}
+      >
+        <span className="h-[7px] w-[7px] rounded-full bg-accent" />
+        {profile.available}
+      </div>
+    </header>
   )
 }

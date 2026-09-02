@@ -1,17 +1,25 @@
 import { useReveal } from '../../hooks/useReveal.js'
 
 /**
- * Wraps children in a fade-and-rise that fires once on scroll.
- * `delay` staggers items in a list — keep it under ~200ms or it drags.
+ * Fade-and-rise that fires once on scroll. `delay` staggers items in a list.
+ * Any `style` passed in is merged, not overwritten — several sections rely on
+ * a Reveal that also carries its own clamp() spacing.
  */
-export default function Reveal({ children, delay = 0, as: Tag = 'div', className = '', ...rest }) {
+export default function Reveal({
+  children,
+  delay = 0,
+  as: Tag = 'div',
+  className = '',
+  style,
+  ...rest
+}) {
   const [ref, visible] = useReveal()
 
   return (
     <Tag
       ref={ref}
       data-visible={visible}
-      style={{ '--reveal-delay': `${delay}ms` }}
+      style={{ '--reveal-delay': `${delay}ms`, ...style }}
       className={`reveal ${className}`}
       {...rest}
     >

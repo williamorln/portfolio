@@ -1,26 +1,28 @@
+import ScrollProgress from './components/ScrollProgress.jsx'
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
-import About from './components/About.jsx'
-import Projects from './components/Projects.jsx'
+import Marquee from './components/Marquee.jsx'
+import Work from './components/Work.jsx'
 import DataScience from './components/DataScience.jsx'
+import About from './components/About.jsx'
+import InTheField from './components/InTheField.jsx'
 import Experience from './components/Experience.jsx'
-import Freelance from './components/Freelance.jsx'
-import Volunteer from './components/Volunteer.jsx'
 import Skills from './components/Skills.jsx'
 import Contact from './components/Contact.jsx'
 
 export default function App() {
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <main>
         <Hero />
-        <About />
-        <Projects />
+        <Marquee />
+        <Work />
         <DataScience />
+        <About />
+        <InTheField />
         <Experience />
-        <Freelance />
-        <Volunteer />
         <Skills />
         <Contact />
       </main>

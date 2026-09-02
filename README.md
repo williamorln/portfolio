@@ -124,41 +124,61 @@ your project → **Settings → Domains → Add**, then point the DNS records it
 ├── index.html                 # document head, fonts, meta/social tags
 ├── vercel.json                # Vercel build settings
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── william-orlando.jpg    # hero portrait
 └── src/
     ├── main.jsx
     ├── App.jsx                # section order
-    ├── index.css              # design tokens (colors, fonts) + reveal animation
+    ├── index.css              # design tokens (colors, fonts) + keyframes
     ├── data/
     │   └── content.js         # ← ALL COPY LIVES HERE
     ├── lib/
     │   └── social.js          # hides profile links that are still placeholders
     ├── hooks/
-    │   └── useReveal.js       # scroll-into-view detection
+    │   ├── useReveal.js       # scroll-into-view detection
+    │   ├── useParallax.js     # hero portrait / wordmark drift
+    │   └── useClock.js        # live Jakarta time
     └── components/
-        ├── Nav.jsx            # sticky header + mobile menu
-        ├── Hero.jsx
+        ├── ScrollProgress.jsx # accent bar across the top
+        ├── Nav.jsx            # fixed, mix-blend-difference
+        ├── Hero.jsx           # portrait, wordmark, clock, tagline
+        ├── Marquee.jsx        # scrolling skills strip
+        ├── Work.jsx           # project list + sticky preview + detail drawer
+        ├── DataScience.jsx    # incl. the "result to be added" chips
         ├── About.jsx
-        ├── Projects.jsx       # incl. the "Repo coming soon" badge logic
-        ├── DataScience.jsx    # incl. the TODO placeholder chips
-        ├── Experience.jsx     # timeline
-        ├── Freelance.jsx
-        ├── Volunteer.jsx
+        ├── InTheField.jsx     # horizontal event strip
+        ├── Experience.jsx     # two columns
         ├── Skills.jsx
         ├── Contact.jsx        # dark contact section + footer
         └── ui/
-            ├── Section.jsx    # shared section shell (number, label, heading)
-            └── Reveal.jsx     # fade-and-rise wrapper
+            ├── Reveal.jsx     # fade-and-rise wrapper
+            └── RepoBadge.jsx  # the three honest repo states
 ```
 
 ## Design notes
 
-- **Colors and fonts** are defined once as Tailwind v4 theme tokens at the top of `src/index.css`.
-  Change `--color-accent` there and the accent updates everywhere (currently a burnt rust,
-  `#b4441f`).
-- **Type:** Instrument Serif for display headings, Inter for body, JetBrains Mono for labels, tags,
-  and metadata — the mono gives the technical sections their character without shouting.
-- **Motion** is deliberately restrained: one fade-and-rise on scroll, fired once per element, plus
-  hover states. It fully disables itself under `prefers-reduced-motion`.
-- **Responsive** and mobile-first throughout; verified with no horizontal overflow at 390px and
-  1440px.
+The visual design was authored in Claude Design and ported here by hand. The export lives in
+`DESIGN UNTUK PORTO/` (gitignored — it's the design source, not site code).
+
+- **Colors and fonts** are Tailwind v4 theme tokens at the top of `src/index.css`, lifted from the
+  design file exactly rather than rounded. Change `--color-accent` there and the accent updates
+  everywhere (currently `#b5471f`).
+- **Type:** Archivo for display, Instrument Sans for body.
+- **The nav uses `mix-blend-mode: difference`**, so it inverts itself against whatever is behind it
+  — white over the dark hero, dark over the paper sections. No scroll listener, no colour swapping.
+- **The hero portrait was shot on white**, which would read as a pasted-on rectangle against the
+  black hero. It's pushed to monochrome and dissolved into the background on every edge with two
+  gradient overlays. If you swap in a photo shot on a dark background, drop the filter and the
+  overlays in `Hero.jsx`.
+- **Motion**: scroll reveals, two parallax layers in the hero, the marquee, and a progress bar.
+  All of it stops under `prefers-reduced-motion`.
+- **Responsive**: verified with no horizontal overflow and no console errors at 390px and 1440px.
+  The hero repositions on mobile — the location pill and the tagline share a band at desktop widths
+  and would otherwise collide.
+
+### Photos still missing
+
+- **A second portrait** for the About section. The design called for a candid/working shot; that
+  slot currently holds the education card instead of an empty frame.
+- **Event photography** for the "In the field" strip. Those cards are typographic for now — set
+  `image` on any entry in `fieldwork` and the card switches to a photo.
