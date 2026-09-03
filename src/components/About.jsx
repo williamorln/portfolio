@@ -12,26 +12,13 @@ export default function About() {
         className="mx-auto grid max-w-[1320px] items-start [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]"
         style={{ gap: 'clamp(32px, 5vw, 80px)' }}
       >
-        {/* The design has a second candid photo here. Until there is one, this
-            block carries the education detail rather than an empty frame —
-            drop an <img> in and it takes the same 4/5 slot. */}
-        <Reveal className="relative flex aspect-4/5 flex-col justify-between overflow-hidden rounded-md bg-ink p-9 text-paper">
-          <div className="text-xs font-semibold uppercase tracking-[0.09em] text-paper/45">
-            Education
-          </div>
-
-          <div>
-            <div className="font-display text-3xl leading-[1.06] tracking-[-0.03em]">
-              {education.school}
-            </div>
-            <div className="mt-4 text-[15px] text-paper/65">{education.degree}</div>
-            <div className="mt-1 text-[13px] text-paper/45">{education.period}</div>
-          </div>
-
-          <div className="border-t border-paper/15 pt-6">
-            <div className="text-xs uppercase tracking-[0.08em] text-paper/45">Based in</div>
-            <div className="mt-2 text-[15px] text-paper/85">{profile.location}</div>
-          </div>
+        <Reveal className="relative aspect-4/5 overflow-hidden rounded-md bg-ink">
+          <img
+            src="/about-portrait.jpg"
+            alt={`${profile.name}, candid`}
+            className="h-full w-full object-cover"
+            style={{ objectPosition: '50% 78%' }}
+          />
         </Reveal>
 
         <div>
@@ -59,9 +46,16 @@ export default function About() {
             </Reveal>
           ))}
 
-          <Reveal
-            className="mt-[34px] grid gap-[22px] border-t border-ink/14 pt-7 [grid-template-columns:repeat(auto-fit,minmax(130px,1fr))]"
-          >
+          <Reveal className="mt-[34px] border-t border-ink/14 pt-7">
+            <div className="font-display text-lg leading-snug tracking-[-0.02em]">
+              {education.school}
+            </div>
+            <div className="mt-1.5 text-sm text-ink-faint">
+              {education.degree} · {education.period}
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-7 grid gap-[22px] [grid-template-columns:repeat(auto-fit,minmax(130px,1fr))]">
             {about.stats.map((stat) => (
               <div key={stat.label}>
                 <div className="font-display text-[34px] font-semibold tracking-[-0.03em]">
