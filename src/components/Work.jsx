@@ -16,48 +16,93 @@ function SectionLabel({ children, tone = 'light' }) {
   )
 }
 
-/** The sticky panel beside the list. There are no project screenshots yet, so
- *  it shows the hovered project typographically instead of an empty image frame. */
+/** The sticky panel beside the list. Projects with a real screenshot show it
+ *  full-bleed under a scrim; the rest fall back to a typographic card rather
+ *  than a stock photo standing in for something that doesn't exist yet. */
 function Preview({ project }) {
   return (
     <div className="sticky top-24 hidden aspect-4/5 overflow-hidden rounded-lg bg-ink lg:block">
       {projects.map((p) => (
         <div
           key={p.n}
-          className="absolute inset-0 flex flex-col justify-between p-8 transition-all duration-500"
+          className="absolute inset-0 transition-all duration-500"
           style={{
             opacity: p.n === project.n ? 1 : 0,
             transform: p.n === project.n ? 'scale(1)' : 'scale(1.06)',
           }}
         >
-          <div className="flex items-start justify-between">
-            <span className="font-display text-[13px] font-semibold tracking-[0.06em] text-accent">
-              {p.n}
-            </span>
-            <span className="text-[13px] text-paper/50">{p.year ?? '—'}</span>
-          </div>
+          {p.image ? (
+            <>
+              <img
+                src={p.image}
+                alt={`${p.title} — screenshot`}
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
 
-          <div>
-            <div className="font-display text-4xl leading-[1.02] tracking-[-0.035em] text-paper">
-              {p.title}
-            </div>
-            <div className="mt-3 text-sm text-paper/60">{p.kind}</div>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {p.stack.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-paper/20 px-3 py-1 text-[12px] text-paper/75"
-                >
-                  {s}
+              {/* Number/year float over the image directly — a small pill
+                  reads fine without a scrim. Everything else lives in one
+                  solid block at the bottom so it never fights image content
+                  for contrast. */}
+              <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-ink/70 px-3 py-1 backdrop-blur-sm">
+                <span className="font-display text-[12px] font-semibold tracking-[0.06em] text-accent">
+                  {p.n}
                 </span>
-              ))}
-            </div>
-          </div>
+                <span className="text-[12px] text-paper/60">{p.year ?? '—'}</span>
+              </div>
 
-          <div className="flex items-center justify-between border-t border-paper/15 pt-5 text-[13px] uppercase tracking-[0.04em] text-paper/55">
-            <span>{repoState(p).label}</span>
-            <span aria-hidden>↗</span>
-          </div>
+              <div className="absolute inset-x-0 bottom-0 bg-ink p-6">
+                <div className="font-display text-2xl leading-[1.05] tracking-[-0.03em] text-paper">
+                  {p.title}
+                </div>
+                <div className="mt-1.5 text-[13px] text-paper/60">{p.kind}</div>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {p.stack.slice(0, 3).map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full border border-paper/20 px-2.5 py-0.5 text-[11px] text-paper/75"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center justify-between border-t border-paper/15 pt-4 text-[12px] uppercase tracking-[0.04em] text-paper/55">
+                  <span>{repoState(p).label}</span>
+                  <span aria-hidden>↗</span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="absolute inset-0 flex flex-col justify-between p-8">
+              <div className="flex items-start justify-between">
+                <span className="font-display text-[13px] font-semibold tracking-[0.06em] text-accent">
+                  {p.n}
+                </span>
+                <span className="text-[13px] text-paper/50">{p.year ?? '—'}</span>
+              </div>
+
+              <div>
+                <div className="font-display text-4xl leading-[1.02] tracking-[-0.035em] text-paper">
+                  {p.title}
+                </div>
+                <div className="mt-3 text-sm text-paper/60">{p.kind}</div>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {p.stack.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full border border-paper/20 px-3 py-1 text-[12px] text-paper/75"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between border-t border-paper/15 pt-5 text-[13px] uppercase tracking-[0.04em] text-paper/55">
+                <span>{repoState(p).label}</span>
+                <span aria-hidden>↗</span>
+              </div>
+            </div>
+          )}
         </div>
       ))}
     </div>
@@ -100,6 +145,15 @@ function Drawer({ project, onClose }) {
             Close ✕
           </button>
         </div>
+
+        {project.image && (
+          <img
+            src={project.image}
+            alt={`${project.title} — screenshot`}
+            className="mb-[26px] w-full rounded-lg border border-ink/10 object-cover object-top"
+            style={{ maxHeight: '340px' }}
+          />
+        )}
 
         <h3
           className="m-0 mb-[10px] font-display font-semibold leading-[1.02] tracking-[-0.035em]"

@@ -65,6 +65,12 @@ export const education = {
      noRepo      → "Business & product work" (never a codebase)
      otherwise   → "Repo coming soon"  (code exists, repo not public yet)
    `year: null` renders "—" rather than a guessed date.
+
+   `image`, when set, is a real screenshot — not a mockup. SCELE's is the
+   live GitHub Actions run history (github.com/williamorln/Scele-Notifier-
+   Automation/actions); PRABU Assistant's and PRABU Workflow's are the
+   actual apps, run locally and captured mid-interaction. Projects without
+   one fall back to the typographic preview rather than a stock photo.
    --------------------------------------------------------------------------- */
 export const projects = [
   {
@@ -82,6 +88,7 @@ export const projects = [
       'Runs itself on a schedule through GitHub Actions',
     ],
     repo: 'https://github.com/williamorln/Scele-Notifier-Automation',
+    image: '/preview-scele-notifier.jpg',
   },
   {
     n: '02',
@@ -98,6 +105,7 @@ export const projects = [
       'When a measurement falls between two sizes it names both and refuses to pick, rather than guessing and causing a return',
     ],
     repo: 'https://github.com/williamorln/prabu-ai-assistant',
+    image: '/preview-prabu-assistant.jpg',
   },
   {
     n: '03',
@@ -114,6 +122,7 @@ export const projects = [
       'Gates are structural, not a reminder someone can skip when they are in a hurry',
     ],
     repo: 'https://github.com/williamorln/prabu-po-workflow',
+    image: '/preview-prabu-workflow.jpg',
   },
   {
     n: '04',
