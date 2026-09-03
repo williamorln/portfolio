@@ -17,7 +17,7 @@ export const profile = {
 }
 
 export const links = {
-  email: 'adakanduo4@gmail.com',
+  email: 'williammorlandoo@gmail.com',
   github: { label: 'GitHub', username: 'williamorln', base: 'https://github.com/' },
 
   // TODO(William): your Kaggle handle. Any link whose username still starts
@@ -66,11 +66,14 @@ export const education = {
      otherwise   → "Repo coming soon"  (code exists, repo not public yet)
    `year: null` renders "—" rather than a guessed date.
 
-   `image`, when set, is a real screenshot — not a mockup. SCELE's is the
-   live GitHub Actions run history (github.com/williamorln/Scele-Notifier-
-   Automation/actions); PRABU Assistant's and PRABU Workflow's are the
-   actual apps, run locally and captured mid-interaction. Projects without
-   one fall back to the typographic preview rather than a stock photo.
+   `image`, when set, is real — not a stock photo standing in for a UI that
+   doesn't exist. SCELE's is the live GitHub Actions run history
+   (github.com/williamorln/Scele-Notifier-Automation/actions); PRABU
+   Assistant's and PRABU Workflow's are the actual apps, run locally and
+   captured mid-interaction; Clipping Automation has no UI of its own, so
+   its image is a real shot of the editing work itself rather than a
+   fabricated dashboard. Projects without an image fall back to the
+   typographic preview.
    --------------------------------------------------------------------------- */
 export const projects = [
   {
@@ -139,6 +142,7 @@ export const projects = [
       'The publish gate refuses to pass until a human has genuinely reviewed the result',
     ],
     repo: 'https://github.com/williamorln/clipping-automation',
+    image: '/preview-clipping.jpg',
   },
   {
     n: '05',

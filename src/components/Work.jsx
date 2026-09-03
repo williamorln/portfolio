@@ -3,6 +3,35 @@ import { projects } from '../data/content.js'
 import Reveal from './ui/Reveal.jsx'
 import RepoBadge, { repoState } from './ui/RepoBadge.jsx'
 
+/** The repo status line inside the preview panel. Only "link" state is
+ *  actually clickable — the other states are honest badges, not buttons. */
+function RepoLink({ project }) {
+  const state = repoState(project)
+
+  if (state.kind === 'link') {
+    return (
+      <a
+        href={state.href}
+        target="_blank"
+        rel="noreferrer"
+        className="group flex w-full items-center justify-between text-[12px] uppercase tracking-[0.04em] text-paper/55 transition-colors hover:text-accent"
+      >
+        <span>{state.label}</span>
+        <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+          ↗
+        </span>
+      </a>
+    )
+  }
+
+  return (
+    <div className="flex w-full items-center justify-between text-[12px] uppercase tracking-[0.04em] text-paper/55">
+      <span>{state.label}</span>
+      <span aria-hidden>↗</span>
+    </div>
+  )
+}
+
 function SectionLabel({ children, tone = 'light' }) {
   return (
     <div
@@ -65,9 +94,8 @@ function Preview({ project }) {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4 flex items-center justify-between border-t border-paper/15 pt-4 text-[12px] uppercase tracking-[0.04em] text-paper/55">
-                  <span>{repoState(p).label}</span>
-                  <span aria-hidden>↗</span>
+                <div className="mt-4 flex items-center border-t border-paper/15 pt-4">
+                  <RepoLink project={p} />
                 </div>
               </div>
             </>
@@ -97,9 +125,8 @@ function Preview({ project }) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between border-t border-paper/15 pt-5 text-[13px] uppercase tracking-[0.04em] text-paper/55">
-                <span>{repoState(p).label}</span>
-                <span aria-hidden>↗</span>
+              <div className="flex items-center border-t border-paper/15 pt-5">
+                <RepoLink project={p} />
               </div>
             </div>
           )}
